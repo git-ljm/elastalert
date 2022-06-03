@@ -1,0 +1,27 @@
+name: "DMHUB_HttpUnknownCode_ERROR_LOG"
+type: frequency
+index: log-*
+num_events: 5
+timeframe:
+  minutes: 30
+
+
+filter:
+- query_string:
+    query: "message: UnknownHttpStatusCodeException"
+
+alert:
+- "command"
+- "email"
+
+command: ["/opt/elastalert/notifiy", "xxxxxxxxxx", "请关注最近%(num_matches)s条错误日志，例如有%(message)s"]
+pipe_alert_text: false
+
+from_addr: "System_Alert_Test@convertlab.com"
+smtp_host: "smtp.partner.outlook.cn"
+smtp_port: 587
+smtp_ssl: false
+smtp_auth_file: /opt/smtp_auth
+email: "jinming.li@convertlab.com"
+email_reply_to: "alarm_support@convertlab.com"
+alert_subject: "DMHUB: 请关注错误日志"
