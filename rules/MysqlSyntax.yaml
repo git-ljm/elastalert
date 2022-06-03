@@ -22,6 +22,6 @@ smtp_host: "smtp.partner.outlook.cn"
 smtp_port: 587
 smtp_ssl: false
 smtp_auth_file: /opt/smtp_auth
-email: "jinming.li@convertlab.com"
+email: "zhangsan@convertlab.com"
 email_reply_to: "alarm_support@convertlab.com"
 alert_subject: "DMHUB: 请关注错误日志"

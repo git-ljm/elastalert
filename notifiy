@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ "$#" -lt 2 ] || [ "$#" -gt 3 ] ; then
+  echo "usage: wechatwork-notify WEBHOOK_KEY WEBHOOK_TEXT [WEBHOOK_MENTION]"
+  exit
+fi
+
+webhook_key="$1"
+webhook_text="$2"
+webhook_mention="$3"
+
+json=$(jq -n --arg content "$(echo "$webhook_text" | sed 's/\\n/\n/g' )" --arg mobiles "$webhook_mention" '{"msgtype": "text", "text": {"content": $content,"mentioned_mobile_list": $mobiles | split(",")}}')
+
+curl -sS "https://oapi.dingtalk.com/robot/send?access_token=$1" \
+  -H 'Content-Type: application/json' \
+  -d "$json"
